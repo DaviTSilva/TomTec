@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomtec.AuthServerAPI", "Tomtec.AuthServerAPI\Tomtec.AuthServerAPI.csproj", "{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C41997B-4DC1-4C40-B688-58B420951F63} = {6C41997B-4DC1-4C40-B688-58B420951F63}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tomtec.Lib.Models", "Tomtec.Lib.Models\Tomtec.Lib.Models.csproj", "{6C41997B-4DC1-4C40-B688-58B420951F63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{297C8796-E636-4449-B492-1F89F138C570}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{0C59BDF2-D7A0-4DFB-8D72-E537A6AB9DF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C41997B-4DC1-4C40-B688-58B420951F63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C41997B-4DC1-4C40-B688-58B420951F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C41997B-4DC1-4C40-B688-58B420951F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C41997B-4DC1-4C40-B688-58B420951F63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67F7C6BB-3685-4F73-BBE9-2D50F9D0CB13} = {0C59BDF2-D7A0-4DFB-8D72-E537A6AB9DF2}
+		{6C41997B-4DC1-4C40-B688-58B420951F63} = {297C8796-E636-4449-B492-1F89F138C570}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C385408B-561A-4BC3-B58A-D68A9C5D49B5}
+	EndGlobalSection
+EndGlobal
