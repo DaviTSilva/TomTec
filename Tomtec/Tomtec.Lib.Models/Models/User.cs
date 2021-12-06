@@ -40,7 +40,7 @@ namespace Tomtec.Lib.Models
         [Required]
         public string Password { get; set; }
 
-        [Column(TypeName = "varchar(200)")]
+        [Column(TypeName = "varchar(100)")]
         [Required]
         public string PasswordSalt { get; set; }
 

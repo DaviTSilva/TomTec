@@ -28,6 +28,13 @@ namespace Tomtec.AuthServerAPI
         {
             services.AddDbContext<UserContext>();
             services.AddControllers();
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            //Dependency Injection
+            services.AddScoped<IUserRepository, UserSQLRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
