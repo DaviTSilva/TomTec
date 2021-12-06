@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tomtec.Lib.Models;
 
-namespace Tomtec.Lib.Models.Data
+namespace Tomtec.AuthServerAPI.Data
 {
-    public class AuthServerContext : DbContext
+    public class UserContext : DbContext
     {
         protected readonly IConfiguration Configuration;
 
-        public AuthServerContext(IConfiguration configuration)
+        public UserContext(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -25,10 +25,20 @@ namespace Tomtec.Lib.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRoles>().HasKey(sc => new { sc.UserId, sc.RoleId });
+            modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<User>().HasIndex( u => new { 
+                u.Email,
+                u.UserName,
+            }).IsUnique();
+            modelBuilder.Entity<Role>().HasIndex(r => r.Name).IsUnique();
+            modelBuilder.Entity<UserType>().HasIndex(ut => ut.Name).IsUnique();
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Address> Address { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<UserType> UserType { get; set; }
+
     }
 }
