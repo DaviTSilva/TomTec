@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Tomtec.AuthServerAPI.Data;
+using Tomtec.Lib.Utils;
 
 namespace Tomtec.AuthServerAPI
 {
@@ -26,6 +27,7 @@ namespace Tomtec.AuthServerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddDbContext<UserContext>();
             services.AddControllers();
             services.AddControllersWithViews()
@@ -48,6 +50,17 @@ namespace Tomtec.AuthServerAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(op => op
+                .WithOrigins(new []{@"http://localhost:3000", 
+                    @"http://localhost:8080", 
+                    @"http://localhost:4200", 
+                    @"https://localhost:44392", 
+                    @"https://doctud-lucdee.vercel.app" })
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+            );
 
             app.UseAuthorization();
 

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Tomtec.Lib.Models
 {
-    public class User
+    public class User : IEntity
     {
         public int Id { get; set; }
 
@@ -35,13 +36,15 @@ namespace Tomtec.Lib.Models
 
         public int UserTypeId { get; set; }
 
-        public ICollection<UserRoles> UserRoles { get; set; }
+        public ICollection<UsersClaims> UsersClaims { get; set; }
 
         [Required]
+        [JsonIgnore]
         public string Password { get; set; }
 
         [Column(TypeName = "varchar(100)")]
         [Required]
+        [JsonIgnore]
         public string PasswordSalt { get; set; }
 
     }

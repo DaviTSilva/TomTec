@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tomtec.Lib.Models
 {
-    public class UserType
+    public class UserType : IEntity
     {
         public int Id { get; set; }
 

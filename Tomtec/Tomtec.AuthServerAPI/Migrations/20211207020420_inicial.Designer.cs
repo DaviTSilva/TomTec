@@ -9,8 +9,8 @@ using Tomtec.AuthServerAPI.Data;
 namespace Tomtec.AuthServerAPI.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20211206051426_UserPasswordSalt")]
-    partial class UserPasswordSalt
+    [Migration("20211207020420_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,26 +53,7 @@ namespace Tomtec.AuthServerAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
-                });
-
-            modelBuilder.Entity("Tomtec.Lib.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(200)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Role");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("Tomtec.Lib.Models.User", b =>
@@ -120,22 +101,26 @@ namespace Tomtec.AuthServerAPI.Migrations
                     b.HasIndex("Email", "UserName")
                         .IsUnique();
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Tomtec.Lib.Models.UserRoles", b =>
+            modelBuilder.Entity("Tomtec.Lib.Models.UserClaim", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
-                    b.HasKey("UserId", "RoleId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserClaim");
                 });
 
             modelBuilder.Entity("Tomtec.Lib.Models.UserType", b =>
@@ -157,6 +142,21 @@ namespace Tomtec.AuthServerAPI.Migrations
                     b.ToTable("UserType");
                 });
 
+            modelBuilder.Entity("Tomtec.Lib.Models.UsersClaims", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserClaimId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "UserClaimId");
+
+                    b.HasIndex("UserClaimId");
+
+                    b.ToTable("UsersClaims");
+                });
+
             modelBuilder.Entity("Tomtec.Lib.Models.User", b =>
                 {
                     b.HasOne("Tomtec.Lib.Models.Address", "Address")
@@ -172,16 +172,16 @@ namespace Tomtec.AuthServerAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tomtec.Lib.Models.UserRoles", b =>
+            modelBuilder.Entity("Tomtec.Lib.Models.UsersClaims", b =>
                 {
-                    b.HasOne("Tomtec.Lib.Models.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("Tomtec.Lib.Models.UserClaim", "Claim")
+                        .WithMany("UsersClaims")
+                        .HasForeignKey("UserClaimId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Tomtec.Lib.Models.User", "User")
-                        .WithMany("UserRoles")
+                        .WithMany("UsersClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

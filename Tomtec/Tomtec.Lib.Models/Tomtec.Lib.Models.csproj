@@ -20,8 +20,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Tomtec.Lib.Utils\Tomtec.Lib.Utils.csproj" />
-  </ItemGroup>
-
 </Project>

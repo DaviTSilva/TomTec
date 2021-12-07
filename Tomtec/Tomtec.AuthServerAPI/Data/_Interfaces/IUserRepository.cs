@@ -8,7 +8,12 @@ namespace Tomtec.AuthServerAPI.Data
 {
     public interface IUserRepository
     {
-        User Create(User user);
-        
+        User CreateUser(User entity);
+        User GetUserByUserNameOrEmail(string userNameOrEmail);
+        User GetUserByEmail(string email);
+        User GetUserByUserName(string username);
+        User GetUserById(int Id);
+        IEnumerable<User> GetUsers();
+        IEnumerable<User> GetUsers(Func<User, bool> quey);
     }
 }

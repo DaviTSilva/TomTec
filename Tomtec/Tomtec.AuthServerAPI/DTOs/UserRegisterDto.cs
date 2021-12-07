@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Tomtec.Lib.Models;
 using Tomtec.Lib.Utils;
 
-namespace Tomtec.Lib.Models.DTOs
+namespace Tomtec.AuthServerAPI.DTOs
 {
     public class UserRegisterDto
     {
@@ -49,7 +50,7 @@ namespace Tomtec.Lib.Models.DTOs
                                 CountryName = this.CountryName,
                             },
             };
-            user.UserRoles = this.RolesIds.Select(id => new UserRoles() { RoleId = id, User = user }).ToList();
+            user.UsersClaims = this.RolesIds.Select(id => new UsersClaims() { UserClaimId = id, User = user }).ToList();
 
             return user;
         }

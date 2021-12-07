@@ -2,7 +2,7 @@
 
 namespace Tomtec.AuthServerAPI.Migrations
 {
-    public partial class CreateUsersTable : Migration
+    public partial class inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace Tomtec.AuthServerAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
+                name: "UserClaim",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -35,11 +35,11 @@ namespace Tomtec.AuthServerAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.PrimaryKey("PK_UserClaim", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTypes",
+                name: "UserType",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -48,7 +48,7 @@ namespace Tomtec.AuthServerAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTypes", x => x.Id);
+                    table.PrimaryKey("PK_UserType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -64,7 +64,7 @@ namespace Tomtec.AuthServerAPI.Migrations
                     Email = table.Column<string>(type: "varchar(150)", nullable: false),
                     UserTypeId = table.Column<int>(nullable: false),
                     Password = table.Column<string>(nullable: false),
-                    PasswordSalt = table.Column<string>(type: "varchar(200)", nullable: false)
+                    PasswordSalt = table.Column<string>(type: "varchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,31 +76,31 @@ namespace Tomtec.AuthServerAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_UserTypes_UserTypeId",
+                        name: "FK_Users_UserType_UserTypeId",
                         column: x => x.UserTypeId,
-                        principalTable: "UserTypes",
+                        principalTable: "UserType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRikes",
+                name: "UsersClaims",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
+                    UserClaimId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRikes", x => new { x.UserId, x.RoleId });
+                    table.PrimaryKey("PK_UsersClaims", x => new { x.UserId, x.UserClaimId });
                     table.ForeignKey(
-                        name: "FK_UserRikes_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
+                        name: "FK_UsersClaims_UserClaim_UserClaimId",
+                        column: x => x.UserClaimId,
+                        principalTable: "UserClaim",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserRikes_Users_UserId",
+                        name: "FK_UsersClaims_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -108,15 +108,10 @@ namespace Tomtec.AuthServerAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_Name",
-                table: "Roles",
+                name: "IX_UserClaim_Name",
+                table: "UserClaim",
                 column: "Name",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserRikes_RoleId",
-                table: "UserRikes",
-                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_AddressId",
@@ -135,8 +130,13 @@ namespace Tomtec.AuthServerAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTypes_Name",
-                table: "UserTypes",
+                name: "IX_UsersClaims_UserClaimId",
+                table: "UsersClaims",
+                column: "UserClaimId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserType_Name",
+                table: "UserType",
                 column: "Name",
                 unique: true);
         }
@@ -144,10 +144,10 @@ namespace Tomtec.AuthServerAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "UserRikes");
+                name: "UsersClaims");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "UserClaim");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -156,7 +156,7 @@ namespace Tomtec.AuthServerAPI.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "UserTypes");
+                name: "UserType");
         }
     }
 }

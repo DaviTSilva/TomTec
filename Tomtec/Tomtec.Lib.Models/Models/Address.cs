@@ -1,11 +1,9 @@
-﻿
-
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tomtec.Lib.Models
 {
-    public class Address
+    public class Address : IEntity
     {
         public int Id { get; set; }
 

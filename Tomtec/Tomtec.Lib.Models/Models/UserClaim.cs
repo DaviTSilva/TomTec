@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tomtec.Lib.Models
 {
-    public class Role
+    public class UserClaim : IEntity
     {
         public int Id { get; set; }
 
@@ -15,6 +15,6 @@ namespace Tomtec.Lib.Models
         [Required]
         public string Name { get; set; }
 
-        public ICollection<UserRoles> UserRoles { get; set; }
+        public ICollection<UsersClaims> UsersClaims { get; set; }
     }
 }

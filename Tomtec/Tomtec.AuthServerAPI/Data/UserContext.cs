@@ -15,6 +15,7 @@ namespace Tomtec.AuthServerAPI.Data
         public UserContext(IConfiguration configuration)
         {
             Configuration = configuration;
+            this.ChangeTracker.LazyLoadingEnabled = false;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -25,19 +26,19 @@ namespace Tomtec.AuthServerAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRoles>().HasKey(ur => new { ur.UserId, ur.RoleId });
+            modelBuilder.Entity<UsersClaims>().HasKey(ur => new { ur.UserId, ur.UserClaimId });
             modelBuilder.Entity<User>().HasIndex( u => new { 
                 u.Email,
                 u.UserName,
             }).IsUnique();
-            modelBuilder.Entity<Role>().HasIndex(r => r.Name).IsUnique();
+            modelBuilder.Entity<UserClaim>().HasIndex(r => r.Name).IsUnique();
             modelBuilder.Entity<UserType>().HasIndex(ut => ut.Name).IsUnique();
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Address> Address { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<UserClaim> UserClaim { get; set; }
+        public DbSet<UsersClaims> UsersClaims { get; set; }
         public DbSet<UserType> UserType { get; set; }
 
     }

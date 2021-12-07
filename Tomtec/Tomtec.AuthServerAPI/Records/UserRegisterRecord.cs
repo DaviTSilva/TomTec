@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Tomtec.Lib.Models;
 
-namespace Tomtec.Lib.Models.Records
+namespace Tomtec.AuthServerAPI.Records
 {
     public class UserRegisterRecord
     {
@@ -28,7 +29,7 @@ namespace Tomtec.Lib.Models.Records
             this.LastName = user.LastName;
             this.Email = user.Email;
             this.UserTypeId = user.UserTypeId;
-            this.UserRolesIds = user.UserRoles.Select(ur => ur.RoleId);
+            this.UserRolesIds = user.UsersClaims.Select(ur => ur.UserClaimId);
             this.Street = user.Address.Street;
             this.Number = user.Address.Number;
             this.PostalCode = user.Address.PostalCode;
