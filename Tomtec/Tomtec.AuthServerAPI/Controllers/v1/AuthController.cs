@@ -8,10 +8,12 @@ using Tomtec.Lib.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Tomtec.AuthServerAPI.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tomtec.AuthServerAPI.Controllers
 {
     [Route("v1/auth")]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -20,29 +22,36 @@ namespace Tomtec.AuthServerAPI.Controllers
         public AuthController(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
-            _jwtService = new JwtService(configuration.GetValue<string>("Secret"));
+            _jwtService = new JwtService();
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
-            var user = _userRepository.GetUserByUserNameOrEmail(dto.UserNameOrEmail);
-
-            if (user == null)
-                return BadRequest(new { message = "Invalid Credentials!" });
-            if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
-                return BadRequest(new { message = "Invalid Credentials!" });
-
-            string jwtToken = _jwtService.Generate(user.Id, user.UsersClaims.Select(c => c.ToSecurityClaim()));
-            Response.Cookies.Append("token", jwtToken, new CookieOptions
+            try
             {
-                HttpOnly = true
-            });
+                var user = _userRepository.GetUserByUserNameOrEmail(dto.UserNameOrEmail);
 
-            return Ok(new
+                if (user == null)
+                    return BadRequest(new { message = "Invalid Credentials!" });
+                if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                    return BadRequest(new { message = "Invalid Credentials!" });
+
+                string jwtToken = _jwtService.Generate(user.Id, user.UsersClaims.Select(c => c.ToSecurityClaim()));
+                Response.Cookies.Append("token", jwtToken, new CookieOptions
+                {
+                    HttpOnly = true
+                });
+
+                return Ok(new
+                {
+                    messsage = "success"
+                });
+            }
+            catch (Exception)
             {
-                messsage = "success"
-            });
+                return Unauthorized();
+            }
         }
 
         [HttpGet("user")]

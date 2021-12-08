@@ -12,9 +12,9 @@ namespace Tomtec.Lib.Utils
     {
         private string _secretKey;
 
-        public JwtService(string secretKey)
+        public JwtService()
         {
-            _secretKey = secretKey;
+            _secretKey = CallerSettingsReader.GetValue<string>("Secret");
         }
 
         public string Generate(int id, IEnumerable<Claim> claims)
@@ -23,7 +23,7 @@ namespace Tomtec.Lib.Utils
             var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
             var header = new JwtHeader(credentials);
 
-            var payload = new JwtPayload(id.ToString(), null /*Audience*/, claims, DateTime.Now, DateTime.Now.AddDays(2));
+            var payload = new JwtPayload(id.ToString(), null /*Audience*/, claims, DateTime.UtcNow, DateTime.UtcNow.AddDays(2));
             var securityToken = new JwtSecurityToken(header, payload);
 
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
@@ -34,7 +34,8 @@ namespace Tomtec.Lib.Utils
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secretKey);
 
-            tokenHandler.ValidateToken(jwtToken, new TokenValidationParameters() { 
+            tokenHandler.ValidateToken(jwtToken, new TokenValidationParameters()
+            {
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = false,

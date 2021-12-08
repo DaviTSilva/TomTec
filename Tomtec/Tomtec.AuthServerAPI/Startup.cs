@@ -20,6 +20,7 @@ namespace Tomtec.AuthServerAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Global.configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
