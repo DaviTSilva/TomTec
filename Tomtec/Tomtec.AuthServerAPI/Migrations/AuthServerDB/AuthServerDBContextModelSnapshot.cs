@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tomtec.Data.AuthServer;
 
-namespace Tomtec.AuthServerAPI.Migrations
+namespace Tomtec.AuthServerAPI.Migrations.AuthServerDB
 {
     [DbContext(typeof(AuthServerDBContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    partial class AuthServerDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

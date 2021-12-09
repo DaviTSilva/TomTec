@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Tomtec.Lib.Models;
 using Tomtec.Lib.Utils;
 
-namespace Tomtec.AuthServerAPI.Data
+namespace Tomtec.Data.AuthServer
 {
-    public class UserSQLRepository : IUserRepository
+    public class AuthSQLRepository : IAuthRepository
     {
-        private readonly UserContext _userContext;
-        public UserSQLRepository(UserContext userContext)
+        private readonly AuthServerDBContext _userContext;
+        public AuthSQLRepository(AuthServerDBContext userContext)
         {
             _userContext = userContext;
         }

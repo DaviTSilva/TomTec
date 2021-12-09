@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tomtec.Data.AuthServer;
 
-namespace Tomtec.AuthServerAPI.Migrations
+namespace Tomtec.AuthServerAPI.Migrations.AuthServerDB
 {
     [DbContext(typeof(AuthServerDBContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20211209003454_teste")]
+    partial class teste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

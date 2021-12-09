@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tomtec.AuthServerAPI.Data;
+using Tomtec.Data.AuthServer;
 using Tomtec.Lib.Utils;
 
 namespace Tomtec.AuthServerAPI
@@ -29,7 +29,7 @@ namespace Tomtec.AuthServerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddDbContext<UserContext>();
+            services.AddDbContext<AuthServerDBContext>();
             services.AddControllers();
             services.AddControllersWithViews()
                     .AddNewtonsoftJson(options =>
@@ -37,7 +37,7 @@ namespace Tomtec.AuthServerAPI
             );
 
             //Dependency Injection
-            services.AddScoped<IUserRepository, UserSQLRepository>();
+            services.AddScoped<IAuthRepository, AuthSQLRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

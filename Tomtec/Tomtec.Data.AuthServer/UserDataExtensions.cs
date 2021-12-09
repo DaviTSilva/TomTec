@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tomtec.Lib.Models;
 
-namespace Tomtec.AuthServerAPI.Data
+namespace Tomtec.Data.AuthServer
 {
-    public static class UserQueryExtensions
+    public static class UserDataExtensions
     {
-        public static IQueryable<User> GetAllCompleteUsers(this UserContext context)
+        public static IQueryable<User> GetAllCompleteUsers(this AuthServerDBContext context)
         {
             return context.Users
                 .Include(nameof(Address))
@@ -17,7 +17,7 @@ namespace Tomtec.AuthServerAPI.Data
                 .Include($"{nameof(UsersClaims)}.{nameof(UsersClaims.UserClaim)}");
         }
 
-        public static IEnumerable<User> GetCompleteUsers(this UserContext context, Func<User, bool> query)
+        public static IEnumerable<User> GetCompleteUsers(this AuthServerDBContext context, Func<User, bool> query)
         {
             return context.Users
                 .Include(nameof(Address))
@@ -26,7 +26,7 @@ namespace Tomtec.AuthServerAPI.Data
                 .Where(query);
         }
 
-        public static User GetCompleteUserByEmail(this UserContext context, string email)
+        public static User GetCompleteUserByEmail(this AuthServerDBContext context, string email)
         {
             return context.Users
                 .Include(nameof(Address))
@@ -35,7 +35,7 @@ namespace Tomtec.AuthServerAPI.Data
                 .FirstOrDefault(u => u.Email.Equals(email));
         }
 
-        public static User GetCompleteUserByUserName(this UserContext context, string userName)
+        public static User GetCompleteUserByUserName(this AuthServerDBContext context, string userName)
         {
             return context.Users
                 .Include(nameof(Address))
@@ -44,7 +44,7 @@ namespace Tomtec.AuthServerAPI.Data
                 .FirstOrDefault(u => u.UserName.Equals(userName));
         }
 
-        public static User GetCompleteUserById(this UserContext context, int Id)
+        public static User GetCompleteUserById(this AuthServerDBContext context, int Id)
         {
             return context.Users
                 .Include(nameof(Address))

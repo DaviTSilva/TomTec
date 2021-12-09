@@ -3,16 +3,17 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tomtec.Lib.Models;
 
-namespace Tomtec.AuthServerAPI.Data
+namespace Tomtec.Data.AuthServer
 {
-    public class UserContext : DbContext
+    public class AuthServerDBContext : DbContext
     {
         protected readonly IConfiguration Configuration;
 
-        public UserContext(IConfiguration configuration)
+        public AuthServerDBContext(IConfiguration configuration)
         {
             Configuration = configuration;
             this.ChangeTracker.LazyLoadingEnabled = false;
@@ -21,7 +22,8 @@ namespace Tomtec.AuthServerAPI.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to sql server with connection string from app settings
-            options.UseSqlServer(Configuration.GetConnectionString("AuthServerDB"));
+            // construct the DB using the project Tomtec.AuthServerAPI as startup
+            options.UseSqlServer(Configuration.GetConnectionString("AuthServerDB"), b => b.MigrationsAssembly("Tomtec.AuthServerAPI"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

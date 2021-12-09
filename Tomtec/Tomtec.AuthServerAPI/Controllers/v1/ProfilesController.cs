@@ -4,18 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tomtec.AuthServerAPI.Data;
 using Tomtec.AuthServerAPI.DTOs;
 using Tomtec.AuthServerAPI.Records;
+using Tomtec.Data.AuthServer;
 using Tomtec.Lib.AspNetCore.Filters;
 
 namespace Tomtec.AuthServerAPI.Controllers.v1
 {
     [Route("v1/profiles")]
     public class ProfilesController : Controller
-    {
-        private readonly IUserRepository _userRepository;
-        public ProfilesController(IUserRepository userRepository)
+    {     
+        private readonly IAuthRepository _userRepository;
+        public ProfilesController(IAuthRepository userRepository)
         {
             _userRepository = userRepository;
         }

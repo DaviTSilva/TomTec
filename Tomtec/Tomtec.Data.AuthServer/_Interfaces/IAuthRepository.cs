@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tomtec.Lib.Models;
 
-namespace Tomtec.AuthServerAPI.Data
+namespace Tomtec.Data.AuthServer
 {
-    public interface IUserRepository
+    public interface IAuthRepository
     {
         User CreateUser(User entity);
         User GetUserByUserNameOrEmail(string userNameOrEmail);

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Tomtec.AuthServerAPI.Data;
 using Tomtec.Lib.Utils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Tomtec.AuthServerAPI.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Tomtec.Data.AuthServer;
 
 namespace Tomtec.AuthServerAPI.Controllers
 {
@@ -16,14 +16,20 @@ namespace Tomtec.AuthServerAPI.Controllers
     [AllowAnonymous]
     public class AuthController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IAuthRepository _userRepository;
         private readonly JwtService _jwtService;
 
-        public AuthController(IUserRepository userRepository, IConfiguration configuration)
+        public AuthController(IAuthRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
             _jwtService = new JwtService();
         }
+        
+        //public AuthController(IUserRepository userRepository, IConfiguration configuration)
+        //{
+        //    _userRepository = userRepository;
+        //    _jwtService = new JwtService();
+        //}
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
