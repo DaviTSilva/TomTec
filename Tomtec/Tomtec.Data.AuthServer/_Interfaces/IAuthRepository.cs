@@ -8,12 +8,35 @@ namespace Tomtec.Data.AuthServer
 {
     public interface IAuthRepository
     {
-        User CreateUser(User entity);
+        //User
+        User CreateUser(User user);
         User GetUserByUserNameOrEmail(string userNameOrEmail);
         User GetUserByEmail(string email);
         User GetUserByUserName(string username);
-        User GetUserById(int Id);
+        User GetUser(int Id);
         IEnumerable<User> GetUsers();
-        IEnumerable<User> GetUsers(Func<User, bool> quey);
+        IEnumerable<User> GetUsers(Func<User, bool> query);
+        void UpdateUser(User user);
+        void DeleteUser(int id);
+        //UserClaim
+        UserClaim CreateUserClaim(UserClaim userClaim);
+        UserClaim GetUserClaim(int id);
+        IEnumerable<UserClaim> GetUserClaims();
+        IEnumerable<UserClaim> GetUserClaims(Func<UserClaim, bool> query);
+        void UpdateUserClaim(UserClaim userClaim);
+        void DeleteUserClaim(int id);
+        //UserType
+        UserType CreateUserType(UserType userType);
+        UserType GetUserType(int id);
+        IEnumerable<UserType> GetUserTypes();
+        IEnumerable<UserType> GetUserTypes(Func<UserType, bool> query);
+        void UpdateUserType(UserType userType);
+        void DeleteUserType(int id);
+        //Address
+        Address GetAddress(int id);
+        IEnumerable<Address> GetAddresses();
+        IEnumerable<Address> GetAddresses(Func<Address, bool> query);
+        void UpdateAddress(Address address);
+
     }
 }

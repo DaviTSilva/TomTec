@@ -9,9 +9,10 @@ using Tomtec.Lib.Models;
 
 namespace Tomtec.Data.AuthServer
 {
-    public class AuthServerDBContext : DbContext
+    public class AuthServerDBContext : DbContext, IDbContext
     {
-        protected readonly IConfiguration Configuration;
+        public DbContext context { get => this; }
+        protected readonly IConfiguration Configuration;      
 
         public AuthServerDBContext(IConfiguration configuration)
         {
@@ -42,6 +43,6 @@ namespace Tomtec.Data.AuthServer
         public DbSet<UserClaim> UserClaim { get; set; }
         public DbSet<UsersClaims> UsersClaims { get; set; }
         public DbSet<UserType> UserType { get; set; }
-
+        
     }
 }

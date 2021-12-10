@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Tomtec.Lib.Utils;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Tomtec.AuthServerAPI.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -19,17 +17,11 @@ namespace Tomtec.AuthServerAPI.Controllers
         private readonly IAuthRepository _userRepository;
         private readonly JwtService _jwtService;
 
-        public AuthController(IAuthRepository userRepository, IConfiguration configuration)
+        public AuthController(IAuthRepository userRepository)
         {
             _userRepository = userRepository;
             _jwtService = new JwtService();
         }
-        
-        //public AuthController(IUserRepository userRepository, IConfiguration configuration)
-        //{
-        //    _userRepository = userRepository;
-        //    _jwtService = new JwtService();
-        //}
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
@@ -68,7 +60,7 @@ namespace Tomtec.AuthServerAPI.Controllers
                 var jwtToken = Request.Cookies["token"];
                 var token = _jwtService.Verify(jwtToken);
                 int userId = int.Parse(token.Issuer);
-                var user = _userRepository.GetUserById(userId);
+                var user = _userRepository.GetUser(userId);
 
                 return Ok(user);
             }

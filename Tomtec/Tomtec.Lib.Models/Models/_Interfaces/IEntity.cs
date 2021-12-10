@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Tomtec.Lib.Models
 {
+    public interface IEntity<T> : IEntity { }
+
     public interface IEntity
     {
-        int Id { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tomtec.Lib.Models
 {
-    public class UserClaim : IEntity
+    public class UserClaim : IEntity<UserClaim>
     {
         public int Id { get; set; }
 

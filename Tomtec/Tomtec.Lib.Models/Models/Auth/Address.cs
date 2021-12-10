@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tomtec.Lib.Models
 {
-    public class Address : IEntity
+    public class Address : IEntity<Address>
     {
         public int Id { get; set; }
 

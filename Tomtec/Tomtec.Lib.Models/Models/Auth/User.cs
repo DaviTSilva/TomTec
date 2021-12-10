@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Tomtec.Lib.Models
 {
-    public class User : IEntity
+    public class User : IEntity<User>
     {
         public int Id { get; set; }
 
@@ -46,6 +46,9 @@ namespace Tomtec.Lib.Models
         [Required]
         [JsonIgnore]
         public string PasswordSalt { get; set; }
+
+        [Required]
+        public bool Active { get; set; } = true;
 
     }
 }
