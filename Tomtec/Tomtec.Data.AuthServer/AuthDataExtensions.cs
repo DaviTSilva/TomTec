@@ -9,7 +9,7 @@ namespace Tomtec.Data.AuthServer
 {
     public static class AuthDataExtensions
     {
-        public static IEnumerable<User> GetCompleteUsers(this AuthServerDBContext context)
+        public static IEnumerable<User> GetCompleteUsers(this IAuthDbContext context)
         {
             return context.Users
                 .Include(nameof(User.Address))
@@ -17,7 +17,7 @@ namespace Tomtec.Data.AuthServer
                 .Include($"{nameof(User.UsersClaims)}.{nameof(UsersClaims.UserClaim)}");
         }
 
-        public static IEnumerable<User> GetCompleteUsers(this AuthServerDBContext context, Func<User, bool> query)
+        public static IEnumerable<User> GetCompleteUsers(this IAuthDbContext context, Func<User, bool> query)
         {
             return context.Users
                 .Include(nameof(User.Address))
@@ -26,7 +26,7 @@ namespace Tomtec.Data.AuthServer
                 .Where(query);
         }
 
-        public static User GetCompleteUserByEmail(this AuthServerDBContext context, string email)
+        public static User GetCompleteUserByEmail(this IAuthDbContext context, string email)
         {
             return context.Users
                 .Include(nameof(User.Address))
@@ -35,7 +35,7 @@ namespace Tomtec.Data.AuthServer
                 .FirstOrDefault(u => u.Email.Equals(email));
         }
 
-        public static User GetCompleteUserByUserName(this AuthServerDBContext context, string userName)
+        public static User GetCompleteUserByUserName(this IAuthDbContext context, string userName)
         {
             return context.Users
                 .Include(nameof(User.Address))

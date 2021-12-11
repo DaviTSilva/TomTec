@@ -29,10 +29,7 @@ namespace Tomtec.AuthServerAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Dependency Injection
-            services.AddScoped<IAuthRepository, AuthSQLRepository>();
-            services.AddScoped<IEntityRepository, EntitySQLRepository>();
-            //services.AddScoped<DbContext, AuthServerDBContext>();
+            
 
             services.AddCors();
             services.AddDbContext<AuthServerDBContext>();
@@ -42,7 +39,9 @@ namespace Tomtec.AuthServerAPI
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
-            
+            //Dependency Injection
+            services.AddScoped<IAuthRepository, AuthSQLRepository>();
+            //services.AddScoped<IEntityRepository, EntitySQLRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -9,6 +9,7 @@ namespace Tomtec.Lib.Models
 {
     public class UserClaim : IEntity<UserClaim>
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column(TypeName = "varchar(200)")]

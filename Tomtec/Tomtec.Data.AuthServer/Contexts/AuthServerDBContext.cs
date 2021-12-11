@@ -9,9 +9,9 @@ using Tomtec.Lib.Models;
 
 namespace Tomtec.Data.AuthServer
 {
-    public class AuthServerDBContext : DbContext, IDbContext
+    public class AuthServerDBContext : DbContext, IAuthDbContext
     {
-        public DbContext context { get => this; }
+        public DbContext Instance { get => this; }
         protected readonly IConfiguration Configuration;      
 
         public AuthServerDBContext(IConfiguration configuration)

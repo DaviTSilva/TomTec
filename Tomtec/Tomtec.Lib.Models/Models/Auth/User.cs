@@ -11,6 +11,7 @@ namespace Tomtec.Lib.Models
 {
     public class User : IEntity<User>
     {
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Column(TypeName="varchar(100)")]
@@ -47,8 +48,8 @@ namespace Tomtec.Lib.Models
         [JsonIgnore]
         public string PasswordSalt { get; set; }
 
-        [Required]
-        public bool Active { get; set; } = true;
+        //[Required]
+        //public bool Active { get; set; } = true;
 
     }
 }
