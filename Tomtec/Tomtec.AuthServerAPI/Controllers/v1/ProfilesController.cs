@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Tomtec.AuthServerAPI.DTOs;
 using Tomtec.AuthServerAPI.Records;
 using Tomtec.Data.AuthServer;
+using Tomtec.Lib.AspNetCore;
 using Tomtec.Lib.AspNetCore.Filters;
+using Tomtec.Lib.Models;
 
 namespace Tomtec.AuthServerAPI.Controllers.v1
 {
@@ -25,7 +27,7 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
         public IActionResult Register([FromBody] UserRegisterDto dto)
         {
             var user = _authRepository.CreateUser(dto.ToModel());
-            return Created("success", new UserRegisterRecord(user));
+            return Created(ResponseMessage.Success, new UserRegisterRecord(user));
         }
 
         [Authorization]
@@ -37,7 +39,7 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
                 var users = _authRepository.GetUsers();
                 return Ok(new
                 {
-                    message = "success",
+                    message = ResponseMessage.Success,
                     value = new UserListRecord(users)
                 });
             }
@@ -56,7 +58,7 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
                 var user = _authRepository.GetUser(id);
                 return Ok(new
                 {
-                    message = "success",
+                    message = ResponseMessage.Success,
                     value = user
                 });
             }
@@ -75,7 +77,7 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
                 var user = _authRepository.GetUserByUserName(userName);
                 return Ok(new
                 {
-                    message = "success",
+                    message = ResponseMessage.Success,
                     value = user
                 });
             }
@@ -94,7 +96,7 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
                 var user = _authRepository.GetUserByEmail(email);
                 return Ok(new
                 {
-                    message = "success",
+                    message = ResponseMessage.Success,
                     value = user
                 });
             }
@@ -102,6 +104,18 @@ namespace Tomtec.AuthServerAPI.Controllers.v1
             {
                 return Unauthorized();
             }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateUser([FromBody] UserRegisterDto dto, int id)
+        {
+            User user = dto.ToModel();
+            user.Id = id;
+            _authRepository.UpdateUser(user);
+
+            return Ok(new { 
+                message = ResponseMessage.Success,
+            });
         }
     }
 }

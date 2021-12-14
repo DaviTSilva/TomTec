@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Tomtec.AuthServerAPI.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Tomtec.Data.AuthServer;
+using Tomtec.Lib.AspNetCore;
 
-namespace Tomtec.AuthServerAPI.Controllers
+namespace Tomtec.AuthServerAPI.Controllers.v1
 {
     [Route("v1/auth")]
     [AllowAnonymous]
@@ -43,7 +44,7 @@ namespace Tomtec.AuthServerAPI.Controllers
 
                 return Ok(new
                 {
-                    messsage = "success"
+                    messsage = ResponseMessage.Success
                 });
             }
             catch (Exception)
@@ -76,7 +77,7 @@ namespace Tomtec.AuthServerAPI.Controllers
             Response.Cookies.Delete("token");
             return Ok(new
             {
-                message = "success"
+                message = ResponseMessage.Success
             });
 
         }
